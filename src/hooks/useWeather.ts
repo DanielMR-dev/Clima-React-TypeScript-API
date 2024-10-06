@@ -10,7 +10,14 @@ export default function useWeather() {
             const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`;
 
             const {data} = await axios.get(geoUrl); // Se hace desctrocturing a la variable usando {data} para ingresar a data en el llamado de la API
-            console.log(data);
+
+            const lat = data[0].lat;
+            const lon = data[0].lon;
+
+            const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`;
+
+            const {data: weatherResult} = await axios(weatherUrl);
+            
 
         } catch (error) {
             console.log(error);
